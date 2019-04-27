@@ -1,4 +1,4 @@
-# CodeLogic
+# CodeLogica
 Repository for code implementation examples.
 
 # Recipes
