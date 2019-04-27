@@ -24,9 +24,9 @@ import javax.crypto.SecretKey;
  * @author rob bitancor
  *
  */
-public class CodeLogicMain {
+public class CodeLogicaMain {
 
-	public static final Logger logger = Logger.getLogger(CodeLogicMain.class.getCanonicalName());
+	public static final Logger logger = Logger.getLogger(CodeLogicaMain.class.getCanonicalName());
 	
 	public static void main(String[] args) {
 		
@@ -41,7 +41,7 @@ public class CodeLogicMain {
 	 */
 	public static void keyGenEncryptDecrypt() {
 		
-		CodeLogicMain main = new CodeLogicMain();
+		CodeLogicaMain main = new CodeLogicaMain();
 		try {
 			
 			SecretKey key = main.generateKeys();
