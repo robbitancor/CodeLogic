@@ -1,10 +1,19 @@
 package com.test;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Base64;
 
+import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 public class TestMain {
 
@@ -30,6 +39,57 @@ public class TestMain {
 			e.printStackTrace();
 		}
 		
+		
+	}
+	
+	/**
+	 * generating keys
+	 * 
+	 * @return
+	 * @throws GeneralSecurityException
+	 */
+	public SecretKey generateKeys() throws GeneralSecurityException {
+		KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+		keyGenerator.init(128); // options are 128, 192, 256
+		SecretKey secretKey = keyGenerator.generateKey();
+		System.out.println();
+		return secretKey;
+	}
+	
+	/**
+	 * Encryption
+	 * 
+	 * @param plainText
+	 * @param secretKey
+	 * @return
+	 * @throws GeneralSecurityException
+	 * @throws IOException
+	 */
+	public String encryptString(String plainText, SecretKey secretKey) throws GeneralSecurityException, IOException {
+		Cipher cipher = Cipher.getInstance(secretKey.getAlgorithm());
+		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+		
+		byte[] textBytes = plainText.getBytes("UTF-8");
+		byte[] encryptedBytes = cipher.doFinal(textBytes);
+		
+		Base64.Encoder encoder = Base64.getEncoder();
+		String encryptedText = encoder.encodeToString(encryptedBytes);
+		return encryptedText;
+		
+ 	}
+	
+	public char[] decryptString(String encryptedText, SecretKey secretKey) throws GeneralSecurityException, IOException{
+		Base64.Decoder decoder = Base64.getDecoder();
+		
+		
+		byte[] encryptedBytes = decoder.decode(encryptedText);
+		Cipher cipher = Cipher.getInstance(secretKey.getAlgorithm());
+		cipher.init(Cipher.DECRYPT_MODE, secretKey);
+		
+		byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+		Charset utf8 = StandardCharsets.UTF_8;
+		CharBuffer decryptedChars = utf8.decode(ByteBuffer.wrap(decryptedBytes));
+		return decryptedChars.array();
 		
 	}
 
