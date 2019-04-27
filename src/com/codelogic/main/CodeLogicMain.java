@@ -1,4 +1,4 @@
-package com.test;
+package com.codelogic.main;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -15,31 +15,17 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-public class TestMain {
+public class CodeLogicMain {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		String value = String.valueOf(binary(1009, new StringBuilder()));
-//		System.out.println(value);
-//		System.out.println("the max number of zeros are: " + sequentialZeros(value));
-//		System.out.println(solution(0,20,5));
-//		int[] b = {1,2,};
-//		System.out.println(b.length);
-//		int b[] = new int[]{3, 8, 9, 7, 6};
-//		for(int a : solution(b, 3)) {
-//			System.out.print(a + ",");
-//		}
-//		System.out.println();
+
 		SecureRandom random = new SecureRandom();
 		try {
 			KeyGenerator keygen = KeyGenerator.getInstance("AES");
 			keygen.init(256, random);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	/**
@@ -52,7 +38,6 @@ public class TestMain {
 		KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
 		keyGenerator.init(128); // options are 128, 192, 256
 		SecretKey secretKey = keyGenerator.generateKey();
-		System.out.println();
 		return secretKey;
 	}
 	
@@ -78,6 +63,15 @@ public class TestMain {
 		
  	}
 	
+	/**
+	 *
+	 * 
+	 * @param encryptedText
+	 * @param secretKey
+	 * @return
+	 * @throws GeneralSecurityException
+	 * @throws IOException
+	 */
 	public char[] decryptString(String encryptedText, SecretKey secretKey) throws GeneralSecurityException, IOException{
 		Base64.Decoder decoder = Base64.getDecoder();
 		
@@ -93,6 +87,7 @@ public class TestMain {
 		
 	}
 
+	
 	public static int[] solution(int[] A, int K) {
 		int[] newArr = new int[A.length];
 		int counter = 1;
@@ -110,6 +105,8 @@ public class TestMain {
 		
 		return A;
 	}
+	
+	
 	public static int solution(int X, int Y, int D) {
 		int counter = 0;
 		int progress= X;
