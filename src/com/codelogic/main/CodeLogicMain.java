@@ -6,30 +6,60 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+/**
+ * Contains collection of useful code for in your programs.
+ * Some came from other source, and some I wrote it by myself.
+ * visit {@link http://codelogica.co.nf} for detailed explanation of 
+ * the codes. 
+ * 
+ * @author rob bitancor
+ *
+ */
 public class CodeLogicMain {
 
+	public static final Logger logger = Logger.getLogger(CodeLogicMain.class.getCanonicalName());
+	
 	public static void main(String[] args) {
-
-		SecureRandom random = new SecureRandom();
+		
+		logger.setLevel(Level.INFO);
+		keyGenEncryptDecrypt();
+		
+	}
+	
+	/**
+	 * sample code for encryption and decryption of a string
+	 * 
+	 */
+	public static void keyGenEncryptDecrypt() {
+		
+		CodeLogicMain main = new CodeLogicMain();
 		try {
-			KeyGenerator keygen = KeyGenerator.getInstance("AES");
-			keygen.init(256, random);
-		} catch (NoSuchAlgorithmException e) {
+			
+			SecretKey key = main.generateKeys();
+			String password = "password123";
+			logger.info("plain password: " + password);
+			String encryptedPassword = main.encryptString(password, key);
+			logger.info("encrypted password: " + encryptedPassword);
+			char decryptedPasswordChars[] = main.decryptString(encryptedPassword, key);
+			logger.info("decrypted password: " + new String(decryptedPasswordChars));
+			
+		}catch(GeneralSecurityException  | IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	/**
 	 * generating keys
+	 * credits to: learning@linkedIn: Java Learn By Example - by Julian Robichaux
 	 * 
 	 * @return
 	 * @throws GeneralSecurityException
@@ -42,7 +72,10 @@ public class CodeLogicMain {
 	}
 	
 	/**
+	 * 
+	 * 
 	 * Encryption
+	 * credits to: learning@linkedIn: Java Learn By Example - by Julian Robichaux
 	 * 
 	 * @param plainText
 	 * @param secretKey
@@ -64,7 +97,8 @@ public class CodeLogicMain {
  	}
 	
 	/**
-	 *
+	 * decryption
+	 * credits to: learning@linkedIn: Java Learn By Example - by Julian Robichaux
 	 * 
 	 * @param encryptedText
 	 * @param secretKey
