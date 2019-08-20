@@ -1,4 +1,4 @@
-package com.concerto.scrapper.test;
+package com.codelogic.main;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
@@ -7,7 +7,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class TestClass {
+/**
+ *credits to GeeksForGeeks https://www.geeksforgeeks.org/image-processing/
+ * 
+ * @author roberi
+ *
+ */
+public class ImageComparator {
 	public static void main(String[] args) {
 //		try {
 //			BufferedImage source = ImageIO.read(new File("C:\\images\\captcha1-stripped2.jpg"));
